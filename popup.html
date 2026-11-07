@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LinkedIn Title Review</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <main>
+    <header>
+      <div class="logo">in</div>
+      <div><h1>CEO & Founder Auto-Follow</h1><p>Acciones automáticas en sugerencias</p></div>
+    </header>
+    <div class="page" id="page">Comprobando pestaña…</div>
+    <section class="stats" aria-label="Progreso de automatización">
+      <div><b id="total">0</b><span>Acciones</span></div>
+      <div><b id="ceo">0</b><span>CEO</span></div>
+      <div><b id="founder">0</b><span>Founder</span></div>
+    </section>
+    <label class="limit" for="limit">Máximo de acciones (0 = ilimitado)
+      <input id="limit" type="number" min="0" step="1" value="10" />
+    </label>
+    <div class="status" id="status" role="status" aria-live="polite">Abre LinkedIn My Network para comenzar.</div>
+    <button id="start" class="primary">▶ Iniciar</button>
+    <button id="stop" class="secondary">■ Detener</button>
+    <section class="info">
+      <h2>Cargos incluidos</h2>
+      <p>CEO · Co-CEO · Founder · Co-Founder · Co Founder</p>
+      <p>Se buscan como palabras completas en el texto de cada sugerencia.</p>
+    </section>
+    <section class="info guidance">
+      <h2>Cómo usar</h2>
+      <ol>
+        <li>Abre <strong>My Network → Grow</strong> y pulsa <strong>Iniciar</strong>.</li>
+        <li>La extensión abrirá <strong>Show all</strong> si está disponible, y buscará tarjetas al desplazarse.</li>
+        <li>Define un máximo de acciones; usa <strong>0</strong> para continuar hasta detenerla.</li>
+        <li>Usa <strong>Detener</strong> para finalizar en cualquier momento.</li>
+      </ol>
+    </section>
+    <p class="foot">Pulsa Follow o Connect en perfiles que coincidan. Connect puede iniciar una invitación; confirma manualmente cualquier paso posterior.</p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

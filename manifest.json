@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "LinkedIn CEO & Founder Auto-Follow",
+  "short_name": "CEO Auto-Follow",
+  "version": "2.0.0",
+  "description": "Busca sugerencias de CEO y Founder en LinkedIn y pulsa Follow o Connect hasta el límite configurado.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_title": "Revisar perfiles de LinkedIn",
+    "default_popup": "popup.html"
+  }
+}
