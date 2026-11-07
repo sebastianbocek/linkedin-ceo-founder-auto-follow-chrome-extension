@@ -43,6 +43,14 @@ function startAutomation(maxActions) {
   const buttonRe = /^(follow|connect)$/i;
   const clicked = new WeakSet();
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const checkWeeklyInvitationLimit = () => {
+    const pageText = (document.body?.innerText || "").replace(/\s+/g, " ").toLowerCase();
+    if (!/reached the weekly limit for connection invitations/.test(pageText)) return false;
+    state.stopped = true;
+    state.weeklyLimitReached = true;
+    state.message = "Límite semanal de invitaciones alcanzado. Se detuvo la automatización; vuelve a intentarlo la próxima semana.";
+    return true;
+  };
   const visible = (el) => {
     const rect = el.getBoundingClientRect();
     const style = getComputedStyle(el);
@@ -90,6 +98,7 @@ function startAutomation(maxActions) {
 
       let idleRounds = 0;
       while (!state.stopped && (state.max === 0 || state.count < state.max)) {
+        if (checkWeeklyInvitationLimit()) break;
         const modal = visibleModal();
         const scope = modal || document;
         const controls = [...scope.querySelectorAll("button, a[role='button'], [role='button']")]
@@ -119,13 +128,16 @@ function startAutomation(maxActions) {
           state.message = `${action} · ${state.count}${state.max ? ` de ${state.max}` : ""}`;
           didAction = true;
           await sleep(1700);
+          if (checkWeeklyInvitationLimit()) break;
         }
+        if (state.weeklyLimitReached) break;
         // Always advance after processing the current batch. Previously a batch
         // with any successful clicks immediately continued, so the page never
         // scrolled while there were matching cards in view.
         const anchor = controls[controls.length - 1] || (modal && modal.querySelector("li, .artdeco-card")) || document.querySelector("main") || document.body;
         const scroller = scrollFeed(anchor, modal);
         await sleep(1800);
+        if (checkWeeklyInvitationLimit()) break;
         idleRounds = didAction ? 0 : idleRounds + 1;
         if (scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 40) {
           // LinkedIn may append cards asynchronously after reaching the end.
@@ -139,7 +151,9 @@ function startAutomation(maxActions) {
           await sleep(2500);
         }
       }
-      state.message = state.stopped ? "Automatización detenida." : `Límite alcanzado: ${state.count} acciones.`;
+      if (!state.weeklyLimitReached) {
+        state.message = state.stopped ? "Automatización detenida." : `Límite alcanzado: ${state.count} acciones.`;
+      }
     } catch (error) {
       state.message = `Se detuvo por un error: ${error?.message || "desconocido"}`;
     } finally { state.running = false; }

@@ -25,6 +25,7 @@ Chrome extension that helps you discover and follow or connect with executives i
 - Scrolls the suggestions dialog to load more profiles.
 - Lets you set an action limit; enter `0` for unlimited processing.
 - Shows action, CEO, and Founder counters, with a **Stop** control.
+- Detects LinkedIn's weekly connection invitation limit notice and stops automatically.
 - Does not add a note or submit any follow-up dialog. If LinkedIn opens an invitation confirmation, review and complete it yourself.
 
 ## Install in Chrome
@@ -44,7 +45,7 @@ The extension matches these title terms in the suggestion card text:
 
 ## Permissions
 
-The extension uses `activeTab` and `scripting` to interact with the active LinkedIn tab after you start it, and `storage` for the extension's declared browser permission set. It does not collect or upload profile information.
+The extension uses `activeTab` and `scripting` to interact with the active LinkedIn tab after you start it. It does not collect or upload profile information.
 
 ## Important
 
@@ -57,6 +58,7 @@ Extensión de Chrome para encontrar directivos en las sugerencias de [My Network
 - Abre **Show all** cuando está disponible y desplaza la lista dentro del diálogo de sugerencias.
 - Permite definir un máximo de acciones; `0` significa ilimitado.
 - Muestra contadores de acciones, CEO y Founder, y permite detener el proceso.
+- Detecta el aviso de límite semanal de invitaciones de LinkedIn y detiene la automatización.
 - Si **Connect** abre una confirmación de invitación, la extensión no agrega una nota ni la envía automáticamente: revisa y completa ese paso manualmente.
 
 Para instalarla, descarga y extrae el ZIP, abre `chrome://extensions/`, activa **Modo desarrollador**, pulsa **Cargar descomprimida** y selecciona la carpeta que contiene `manifest.json`. Luego abre [My Network → Grow](https://www.linkedin.com/mynetwork/grow/), abre el popup e inicia el proceso.
